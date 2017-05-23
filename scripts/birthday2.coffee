@@ -7,11 +7,16 @@ module.export = (robot) ->
                 robot.send {room: channel}, msg
 
         send '#general', "@michio testA"
-                
+
+        new cronJob('0 40 12 * * *', () ->
+                # ↑のほうで宣言しているsendメソッドを実行する
+                send '#general', "@michio Test1"
+                ).start()
+                              # 
         bdSay = (slackname, name, month, day) ->
                 month2=Number(month)-1
                 # cronTime="0 46 11 #{day} #{month2} *"
-                cronTime="0 38 12 * * *"
+                cronTime="0 40 12 * * *"
                 task1=new cronJob(cronTime, () ->
                         send '#random', "@michio test"
                         envelope = room: "random"
