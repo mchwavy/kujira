@@ -1,25 +1,21 @@
 # 定期処理をするオブジェクトを宣言
 cronJob = require('cron').CronJob
 
-#
-
 module.exports = (robot) ->
 
         # 特定のチャンネルへ送信するメソッド(定期実行時に呼ばれる)　
         send = (channel, msg) ->
                 robot.send {room: channel}, msg
 
-        # send '#general', "@michio Test-B2-A"
-
-        new cronJob('0 11 14 * * *', () ->
-                # ↑のほうで宣言しているsendメソッドを実行する
-                send '#general', "@michio Test-B2-B"
-        ).start()
+        # Test for cronJob and send
+        # new cronJob('0 11 14 * * *', () ->
+        #         # ↑のほうで宣言しているsendメソッドを実行する
+        #         send '#general', "@michio Test-B2-B"
+        # ).start()
                               # 
         bdSay = (slackname, name, month, day) ->
                 month2=Number(month)-1
-                # cronTime="0 46 11 #{day} #{month2} *"
-                cronTime="0 12 14 * * *"
+                cronTime="0 16 14 #{day} #{month2} *"
                 task1=new cronJob(cronTime, () ->
                         send '#general', "@michio Test-B2-C"
                         # envelope = room: "random"
