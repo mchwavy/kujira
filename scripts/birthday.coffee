@@ -63,15 +63,16 @@ module.exports = (robot) ->
                 askedUser = msg.match[1]
                 # msg.send askedUser
 
+                foundFlag=0
                 for slackname, bday of bdlist
                         if askedUser is slackname
                                 bdaySplit = bday.split "-"
                                 month = parseInt bdaySplit[0]
                                 day = parseInt bdaySplit[1]
                                 msg.send "#{slackname}の誕生日は #{month} 月 #{day} 日です"
-                        else
-                                msg.send "#{slackname}の誕生日はわかりません"
-
+                                foundFlag=1
+                if foundFlag is 0
+                        msg.send "#{askedUser}の誕生日は知りません"
 
         robot.respond /show bdays/, (msg) ->
                 for slackname, bday of bdlist
