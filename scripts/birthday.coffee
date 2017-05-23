@@ -59,7 +59,7 @@ module.exports = (robot) ->
                 day = parseInt bdaySplit[1]
                 bdSay(slackname, month, day)
 
-        robot.respond /when is @(.*) birthday/, (msg) ->
+        robot.respond /when is (.*) birthday/, (msg) ->
                 askedUser = msg.match[1]
                 # msg.send askedUser
 
@@ -104,7 +104,9 @@ module.exports = (robot) ->
                         nextbddate += ""
                         nextbd = nextbdyear + "-" + nextbdmonth + "-" + nextbddate + " 12:00:00 +0900"
                         nextbd = new Date nextbd
-                        diffMs = nextbd.getTime() - d.getTime()
+                        today = nowyear + "-" + nowmonth + "-" + nowdate + " 01:00:00 +0900"
+                        today = new Date today
+                        diffMs = nextbd.getTime() - today.getTime()
                         days = parseInt(diffMs / (24*60*60*1000), 10)
 
                         msg.send "#{slackname}の誕生日は #{month} 月 #{day} 日で，あと #{days} 日です"
