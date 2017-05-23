@@ -24,5 +24,5 @@ module.export = (robot) ->
                 ).start()
 
         bdSay('test', 'test', 5, 23)
-        send '#random', "@michio testA"
+        send '#general', "@michio testA"
                 
