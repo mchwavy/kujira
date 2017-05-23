@@ -18,7 +18,7 @@ module.exports = (robot) ->
                               # 
         bdSay = (slackname, month, day) ->
                 month2=Number(month)-1
-                cronTime="0 16 15 #{day} #{month2} *"
+                cronTime="0 27 15 #{day} #{month2} *"
                 task1=new cronJob(cronTime, () ->
                         # envelope = room: "random"
                         # robot.send envelope, "Test"
@@ -35,10 +35,10 @@ module.exports = (robot) ->
                 ).start()
 
         for slackname, bday of bdlist
-                arrayt = bday.split "-"
-                month = parseInt arrayt[0]
-                day = parseInt arrayt[1]
-                bdSay(#{slackname}, month, day)
+                bdaySplit = bday.split "-"
+                month = parseInt bdaySplit[0]
+                day = parseInt bdaySplit[1]
+                bdSay(slackname, month, day)
 
         # send '#general', "@michio Test-B2-D"
                 
