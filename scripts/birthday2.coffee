@@ -15,21 +15,21 @@ module.exports = (robot) ->
                               # 
         bdSay = (slackname, name, month, day) ->
                 month2=Number(month)-1
-                cronTime="0 16 14 #{day} #{month2} *"
+                cronTime="0 21 14 #{day} #{month2} *"
                 task1=new cronJob(cronTime, () ->
-                        send '#general', "@michio Test-B2-C"
                         # envelope = room: "random"
                         # robot.send envelope, "Test"
-                        # say = """
-                        # ```
-                        # #{month} #{day}だよ #{name}
-                        # '''
-                        # """
+                        say = """
+                        ```
+                        #{month} 月 #{day} 日だよ #{name}!
+                        '''
+                        """
+                        send '#general', say
                         # robot.send envelope, say
                         # , null, true
                 ).start()
 
-        bdSay('test', 'test', 5, 23)
+        bdSay('test', 'michio', 5, 23)
 
         # send '#general', "@michio Test-B2-D"
                 
