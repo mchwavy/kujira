@@ -4,8 +4,8 @@ module.export = (robot) ->
 
         bdSay = (slackname, name, month, day) ->
                 month2=Number(month)-1
-                cronTime="0 43 11 #{day} #{month2} *"
-                task1 = new cronJob(cronTime, () ->
+                cronTime="0 46 11 #{day} #{month2} *"
+                task1 = new cronJob(cronTime, () =>
                         envelope = room: "random"
                         robot.send envelope, "Test"
                         # say = """
