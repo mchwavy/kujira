@@ -5,11 +5,13 @@ module.export = (robot) ->
         # 特定のチャンネルへ送信するメソッド(定期実行時に呼ばれる)　
         send = (channel, msg) ->
                 robot.send {room: channel}, msg
+
+        send '#general', "@michio testA"
                 
         bdSay = (slackname, name, month, day) ->
                 month2=Number(month)-1
                 # cronTime="0 46 11 #{day} #{month2} *"
-                cronTime="0 34 12 * * *"
+                cronTime="0 38 12 * * *"
                 task1=new cronJob(cronTime, () ->
                         send '#random', "@michio test"
                         envelope = room: "random"
@@ -24,5 +26,6 @@ module.export = (robot) ->
                 ).start()
 
         bdSay('test', 'test', 5, 23)
-        send '#general', "@michio testA"
+
+        send '#general', "@michio testB"
                 
