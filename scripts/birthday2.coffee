@@ -8,10 +8,10 @@ module.export = (robot) ->
 
         send '#general', "@michio testA"
 
-        new cronJob('0 40 12 * * *', () ->
+        new cronJob('0 45 12 * * *', () ->
                 # ↑のほうで宣言しているsendメソッドを実行する
                 send '#general', "@michio Test1"
-                ).start()
+        ).start()
                               # 
         bdSay = (slackname, name, month, day) ->
                 month2=Number(month)-1
