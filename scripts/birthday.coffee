@@ -7,9 +7,12 @@
 #  None
 #
 # Commands:
-#  hubot when is @user birthday - to know the bday of a person
+#  hubot when is user birthday - to know the bday of a person
+#  hubot userの誕生日 - userの誕生日がわかる
 #  hubot show bdays - to get full list of user birthdays
+#  hubot 誕生日リスト - みんなの誕生日がわかる
 #  hubot show next bdays - lists upcoming birthdays
+#  hubot 今後の誕生日 - 今後のみんなの誕生日が，あと何日かわかる
 #
 # Notes:
 #
@@ -61,7 +64,7 @@ module.exports = (robot) ->
 
         robot.respond /when is (.*) birthday/, (msg) ->
                 askedUser = msg.match[1]
-                # msg.send askedUser
+                msg.send askedUser
 
                 foundFlag=0
                 for slackname, bday of bdlist
@@ -74,19 +77,34 @@ module.exports = (robot) ->
                 if foundFlag is 0
                         msg.send "#{askedUser}の誕生日は知りません"
 
-        robot.respond /show bdays/, (msg) ->
+        robot.respond /(.*)の誕生日/, (msg) ->
+                askedUser = msg.match[1]
+                msg.send askedUser
+
+                foundFlag=0
+                for slackname, bday of bdlist
+                        if askedUser is slackname
+                                bdaySplit = bday.split "-"
+                                month = parseInt bdaySplit[0]
+                                day = parseInt bdaySplit[1]
+                                msg.send "#{slackname}の誕生日は #{month} 月 #{day} 日です"
+                                foundFlag=1
+                if foundFlag is 0
+                        msg.send "#{askedUser}の誕生日は知りません"
+
+        robot.respond /(show bdays|誕生日リスト)/, (msg) ->
                 for slackname, bday of bdlist
                         bdaySplit = bday.split "-"
                         month = parseInt bdaySplit[0]
                         day = parseInt bdaySplit[1]
                         msg.send "#{slackname}の誕生日は #{month} 月 #{day} 日です"
 
-        robot.respond /show next bdays/, (msg) ->
+        robot.respond /(show next bdays|今後の誕生日)/, (msg) ->
                 d = new Date
                 nowyear = d.getFullYear()
                 nowmonth = d.getMonth() + 1
                 nowdate = d.getDate()
-                
+
                 for slackname, bday of bdlist
                         bdaySplit = bday.split "-"
                         month = parseInt bdaySplit[0]
@@ -111,3 +129,6 @@ module.exports = (robot) ->
 
                         msg.send "#{slackname}の誕生日は #{month} 月 #{day} 日で，あと #{days} 日です"
 
+#todo 残りの日数でソートする。
+
+                                
