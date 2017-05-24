@@ -64,7 +64,7 @@ module.exports = (robot) ->
 
         robot.respond /when is (.*) birthday/, (msg) ->
                 askedUser = msg.match[1]
-                msg.send askedUser
+                # msg.send askedUser
 
                 foundFlag=0
                 for slackname, bday of bdlist
@@ -79,7 +79,7 @@ module.exports = (robot) ->
 
         robot.respond /(.*)の誕生日/, (msg) ->
                 askedUser = msg.match[1]
-                msg.send askedUser
+                # msg.send askedUser
 
                 foundFlag=0
                 for slackname, bday of bdlist
