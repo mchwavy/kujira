@@ -54,8 +54,8 @@ module.exports = (robot) ->
                                 if json.length is 0
                                         msg.send "#{d.getHours()}時#{d.getMinutes()}分現在，遅れている列車はありません"
                                 else
-                                        msg.send "#{d.getHours()}時#{d.getMinutes()}分現在，現在遅れている列車は以下の通りです…"
                                         troubleList =""
+                                        troubleList="#{d.getHours()}時#{d.getMinutes()}分現在，現在遅れている列車は以下の通りです…\n"
                                         for num in [0...json.length]
                                                 troubleList +="#{json[num].company} 「#{json[num].name}」"
                                                 if num < json.length-1
