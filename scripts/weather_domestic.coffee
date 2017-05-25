@@ -8,7 +8,8 @@
 #   None
 #
 # Commands:
-#  hubot ○○の天気 - to know the weather forecasts at ○○
+#  hubot ○○の天気 -  ○○の天気を知る
+#  hubot 天気情報場所一覧 - 天気を調べられる場所の一覧を知る
 #
 # Notes:
 #
@@ -207,3 +208,11 @@ module.exports = (robot) ->
                 else
                         msg.send "#{city}の天気はわかりません…"
 
+        robot.respond /天気情報場所一覧/, (msg) ->
+                locationList = ""
+                for location, id of cityIds
+                        locationList += location
+                        locationList += "、"
+
+                msg.send "天気を調べられるのは、次の場所です．"
+                msg.send "#{locationList}"
