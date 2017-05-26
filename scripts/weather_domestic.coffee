@@ -210,9 +210,14 @@ module.exports = (robot) ->
 
         robot.respond /天気情報場所一覧/, (msg) ->
                 locationList = ""
+
+                locationList += "天気を調べられるのは、次の場所です\n"
+
                 for location, id of cityIds
                         locationList += location
                         locationList += "、"
 
-                msg.send "天気を調べられるのは、次の場所です．"
+                locationList += "\n 「どこどこの天気」と聞いて下さい"
+
                 msg.send "#{locationList}"
+

@@ -121,13 +121,16 @@ module.exports = (robot) ->
 
                 busFromNow = ""                
                 for num in [0...busListWeekday.length]
-                        busTimeStrInFour = busListWeekday[num] + ""
-                        # busTimeStr = busTimeStrInFour[0..1]+":"+busTimeStrInFour[2..3]
-                        # busFromNow += busTimeStr
-                        busFromNow += busTimeStrInFour
                         busFromNow += "、"
+                        busTimeStrInFour = busListWeekday[num] + ""
+                        if busListWeekday[num] < 1000
+                                busTimeStr = busTimeStrInFour[0]+":"+busTimeStrInFour[1..2]
+                        else
+                                busTimeStr = busTimeStrInFour[0..1]+":"+busTimeStrInFour[2..3]
 
-                msg.send "平日の池袋行きバスは，#{busFromNow}"
+                        busFromNow += busTimeStr
+
+                msg.send "平日の池袋行きバスは#{busFromNow}"
 
 
         robot.respond /土曜の池袋行きバス/, (msg) ->
@@ -137,28 +140,34 @@ module.exports = (robot) ->
                 
                 busFromNow = ""                
                 for num in [0...busListSaturday.length]
-                        busTimeStrInFour = busListSaturday[num] + ""
-                        # busTimeStr = busTimeStrInFour[0..1]+":"+busTimeStrInFour[2..3]
-                        # busFromNow += busTimeStr
-                        busFromNow += busTimeStrInFour
                         busFromNow += "、"
+                        busTimeStrInFour = busListSaturday[num] + ""
+                        if busListSaturday[num] < 1000
+                                busTimeStr = busTimeStrInFour[0]+":"+busTimeStrInFour[1..2]
+                        else
+                                busTimeStr = busTimeStrInFour[0..1]+":"+busTimeStrInFour[2..3]
 
-                msg.send "土曜の池袋行きバスは，#{busFromNow}"
+                        busFromNow += busTimeStr
 
-        robot.respond /日曜の池袋行きバス/, (msg) ->
+                msg.send "土曜の池袋行きバスは#{busFromNow}"
+
+        robot.respond /(日曜|祝日)の池袋行きバス/, (msg) ->
 
                 d = new Date
                 # msg.send busListSunday.length
                 
                 busFromNow = ""                
                 for num in [0...busListSunday.length]
-                        busTimeStrInFour = busListSunday[num] + ""
-                        # busTimeStr = busTimeStrInFour[0..1]+":"+busTimeStrInFour[2..3]
-                        # busFromNow += busTimeStr
-                        busFromNow += busTimeStrInFour
                         busFromNow += "、"
+                        busTimeStrInFour = busListSunday[num] + ""
+                        if busListSunday[num] < 1000
+                                busTimeStr = busTimeStrInFour[0]+":"+busTimeStrInFour[1..2]
+                        else
+                                busTimeStr = busTimeStrInFour[0..1]+":"+busTimeStrInFour[2..3]
 
-                msg.send "日曜の池袋行きバスは，#{busFromNow}"
+                        busFromNow += busTimeStr
+
+                msg.send "日曜祝日の池袋行きバスは#{busFromNow}"
 
 
 
@@ -177,48 +186,68 @@ module.exports = (robot) ->
                         for num in [0...busListWeekday.length]
                                 if nowTime < busListWeekday[num]
 
+                                        busFromNow += "、"
+
                                         busTimeStrInFour = busListWeekday[num] + ""
-                                        # busTimeStr = busTimeStrInFour[0..1]+":"+busTimeStrInFour[2..3]
-                                        # busFromNow += busTimeStr
-                                        busFromNow += busTimeStrInFour
+                                        if busListWeekday[num] < 1000
+                                                busTimeStr = busTimeStrInFour[0]+":"+busTimeStrInFour[1..2]
+                                        else
+                                                busTimeStr = busTimeStrInFour[0..1]+":"+busTimeStrInFour[2..3]
+
+                                        busFromNow += busTimeStr
 
                                         icount += 1
 
                                         if icount is 4
                                                 break
 
-                                        busFromNow += "、"
+                        if icount is 0
+                                busFromNow="終わりました"
 
-                        msg.send "平日の池袋行きバスは，#{busFromNow}"
+                        msg.send "平日の池袋行きバスは#{busFromNow}"
 
                 else if  todayDay is 6 # 土曜
                         for num in [0...busListSaturday.length]
                                 if nowTime < busListSaturday[num]
+                                        busFromNow += "、"
+
                                         busTimeStrInFour = busListSaturday[num] + ""
-                                        # busTimeStr = busTimeStrInFour[0..1]+":"+busTimeStrInFour[2..3]
-                                        # busFromNow += busTimeStr
-                                        busFromNow += busTimeStrInFour
+                                        if busListSaturday[num] < 1000
+                                                busTimeStr = busTimeStrInFour[0]+":"+busTimeStrInFour[1..2]
+                                        else
+                                                busTimeStr = busTimeStrInFour[0..1]+":"+busTimeStrInFour[2..3]
+
+                                        busFromNow += busTimeStr
+
                                         icount += 1
 
                                         if icount is 4
                                                 break
 
-                                        busFromNow += "、"
+                        if icount is 0
+                                busFromNow="終わりました"
 
-                        msg.send "土曜の池袋行きバスは，#{busFromNow}"
+                        msg.send "土曜の池袋行きバスは#{busFromNow}"
 
                 else if  todayDay is 0 # 日曜
                         for num in [0...busListSunday.length]
                                 if nowTime < busListSunday[num]
+                                        busFromNow += "、"
+
                                         busTimeStrInFour = busListSunday[num] + ""
-                                        # busTimeStr = busTimeStrInFour[0..1]+":"+busTimeStrInFour[2..3]
-                                        # busFromNow += busTimeStr
-                                        busFromNow += busTimeStrInFour
+                                        if busListSunday[num] < 1000
+                                                busTimeStr = busTimeStrInFour[0]+":"+busTimeStrInFour[1..2]
+                                        else
+                                                busTimeStr = busTimeStrInFour[0..1]+":"+busTimeStrInFour[2..3]
+
+                                        busFromNow += busTimeStr
+
                                         icount += 1
 
                                         if icount is 4
                                                 break
 
-                                        busFromNow += "、"
+                        if icount is 0
+                                busFromNow="終わりました"
 
-                        msg.send "日曜の池袋行きバスは，#{busFromNow}"
+                        msg.send "日曜の池袋行きバスは#{busFromNow}"
