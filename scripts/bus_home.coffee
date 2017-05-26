@@ -10,7 +10,7 @@
 #  hubot 平日の池袋行きバス - 平日の池袋行きバス
 #  hubot 土曜の池袋行きバス - 土曜の池袋行きバス
 #  hubot 日曜の池袋行きバス - 日曜の池袋行きバス
-#  hubot 池袋行きバス - 池袋行きバス直近4本の時間(祝日未対応)
+#  hubot 池袋行きバス - 池袋行きバス直近4本の時間
 #
 # Notes:
 #
@@ -174,80 +174,126 @@ module.exports = (robot) ->
         robot.respond /池袋行きバス/, (msg) ->
 
                 # msg.send "電車の遅延状況を調べます…"
-                        
                 d = new Date
+
                 todayDay=d.getDay()     # 0:Sunday, 6:Saturday
                 nowTime = d.getHours()*100 + d.getMinutes()
 
-                busFromNow = ""
-                icount = 0
+                todayYear = d.getFullYear() + ""
+                todayMonth = "0" + (d.getMonth()+1)
+                todayMonth = todayMonth[(todayMonth.length-2)..(todayMonth.length-1)]
+                todayDate = "0" + d.getDate()
+                todayDate = todayDate[(todayDay.length-2)..(todayDay.length-1)]
+                todayFullDate = todayYear + "-" + todayMonth + "-" + todayDate
+                todayDay = d.getDay()
 
-                if 1 <= todayDay <=5  # 平日
-                        for num in [0...busListWeekday.length]
-                                if nowTime < busListWeekday[num]
+                # Holiday
 
-                                        busFromNow += "、"
+                dateTimeUrl = "https://holidays-jp.github.io/api/v1/" + todayYear + "/date.json"
 
-                                        busTimeStrInFour = busListWeekday[num] + ""
-                                        if busListWeekday[num] < 1000
-                                                busTimeStr = busTimeStrInFour[0]+":"+busTimeStrInFour[1..2]
-                                        else
-                                                busTimeStr = busTimeStrInFour[0..1]+":"+busTimeStrInFour[2..3]
+                apiUrl = dateTimeUrl
 
-                                        busFromNow += busTimeStr
+                request = require "request"
 
-                                        icount += 1
+                isHoliday = false
 
-                                        if icount is 4
-                                                break
+                # URLにアクセスしてデータを取得する
+                request apiUrl, (err, response, body) ->
+                # request.get "#{apiUrl}", (err, response, body) ->
 
-                        if icount is 0
-                                busFromNow="終わりました"
+                        if err  # プログラムエラー
+                                throw err
 
-                        msg.send "平日の池袋行きバスは#{busFromNow}"
+                        if response.statusCode is 200  # 取得成功
+                        # JSONとして解釈する
+                                try
+                                        json = JSON.parse(body)
+                                catch e
+                                        msg.send "JSON parse error: #{e}"
 
-                else if  todayDay is 6 # 土曜
-                        for num in [0...busListSaturday.length]
-                                if nowTime < busListSaturday[num]
-                                        busFromNow += "、"
 
-                                        busTimeStrInFour = busListSaturday[num] + ""
-                                        if busListSaturday[num] < 1000
-                                                busTimeStr = busTimeStrInFour[0]+":"+busTimeStrInFour[1..2]
-                                        else
-                                                busTimeStr = busTimeStrInFour[0..1]+":"+busTimeStrInFour[2..3]
+                                for key, value of json
+                                        if todayFullDate is key
+                                                isHoliday = true
 
-                                        busFromNow += busTimeStr
+                                # msg.send "#{todayFullDate} #{isHoliday}"
+                                # str = "2017-01-01"
+                                # for hdate, hname of json
+                                #         msg.send "1月1日は休日です #{hdate} #{hname}"
+                                # else
+                                #         msg.send '変です#{hdate} #{hname}'
+                                        
 
-                                        icount += 1
+                        busFromNow = ""
+                        icount = 0
+                        # msg.send "#{todayFullDate} #{isHoliday}"
 
-                                        if icount is 4
-                                                break
+                        if (1 <= todayDay <=5) and (isHoliday is false) # 平日
+                                for num in [0...busListWeekday.length]
+                                        if nowTime < busListWeekday[num]
 
-                        if icount is 0
-                                busFromNow="終わりました"
+                                                busFromNow += "、"
 
-                        msg.send "土曜の池袋行きバスは#{busFromNow}"
+                                                busTimeStrInFour = busListWeekday[num] + ""
+                                                if busListWeekday[num] < 1000
+                                                        busTimeStr = busTimeStrInFour[0]+":"+busTimeStrInFour[1..2]
+                                                else
+                                                        busTimeStr = busTimeStrInFour[0..1]+":"+busTimeStrInFour[2..3]
+        
+                                                busFromNow += busTimeStr
 
-                else if  todayDay is 0 # 日曜
-                        for num in [0...busListSunday.length]
-                                if nowTime < busListSunday[num]
-                                        busFromNow += "、"
+                                                icount += 1
 
-                                        busTimeStrInFour = busListSunday[num] + ""
-                                        if busListSunday[num] < 1000
-                                                busTimeStr = busTimeStrInFour[0]+":"+busTimeStrInFour[1..2]
-                                        else
-                                                busTimeStr = busTimeStrInFour[0..1]+":"+busTimeStrInFour[2..3]
+                                                if icount is 4
+                                                        break
 
-                                        busFromNow += busTimeStr
+                                if icount is 0
+                                        busFromNow="終わりました"
 
-                                        icount += 1
+                                msg.send "平日の池袋行きバスは#{busFromNow}"
 
-                                        if icount is 4
-                                                break
+                        else if (todayDay is 6) and (isHoliday is false) # 土曜
+                                for num in [0...busListSaturday.length]
+                                        if nowTime < busListSaturday[num]
+                                                busFromNow += "、"
 
-                        if icount is 0
-                                busFromNow="終わりました"
+                                                busTimeStrInFour = busListSaturday[num] + ""
+                                                if busListSaturday[num] < 1000
+                                                        busTimeStr = busTimeStrInFour[0]+":"+busTimeStrInFour[1..2]
+                                                else
+                                                        busTimeStr = busTimeStrInFour[0..1]+":"+busTimeStrInFour[2..3]
 
-                        msg.send "日曜の池袋行きバスは#{busFromNow}"
+                                                busFromNow += busTimeStr
+
+                                                icount += 1
+
+                                                if icount is 4
+                                                        break
+
+                                if icount is 0
+                                        busFromNow="終わりました"
+
+                                msg.send "土曜の池袋行きバスは#{busFromNow}"
+
+                        else if (todayDay is 0) or (isHoliday is true) # 日曜 or 祝日
+                                for num in [0...busListSunday.length]
+                                        if nowTime < busListSunday[num]
+                                                busFromNow += "、"
+
+                                                busTimeStrInFour = busListSunday[num] + ""
+                                                if busListSunday[num] < 1000
+                                                        busTimeStr = busTimeStrInFour[0]+":"+busTimeStrInFour[1..2]
+                                                else
+                                                        busTimeStr = busTimeStrInFour[0..1]+":"+busTimeStrInFour[2..3]
+
+                                                busFromNow += busTimeStr
+
+                                                icount += 1
+
+                                                if icount is 4
+                                                        break
+
+                                if icount is 0
+                                        busFromNow="終わりました"
+
+                                msg.send "日曜の池袋行きバスは#{busFromNow}"
