@@ -5,15 +5,16 @@
 #   None
 #
 # Commands:
-#   hubot 料理 ○○- ○○を使った料理を調べます。
+#   hubot 料理 ○○- ○○の料理を調べます。
+#   hubot レシピ ○○- ○○のレシピを調べます。
 #
 # Author:
 #   mchwavy
 
 module.exports = (robot) ->
-        robot.respond /料理\s(.*)/, (msg) ->
+        robot.respond /(料理|レシピ)\s(.*)/, (msg) ->
                 text="quugle.blogspot.jp/search?q="
-                things=msg.match[1]
+                things=msg.match[2]
                 lists=things.split /\s+/
                 for num in [0...lists.length]
                         text+=lists[num]
