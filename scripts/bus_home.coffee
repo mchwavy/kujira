@@ -171,7 +171,7 @@ module.exports = (robot) ->
 
 
 
-        robot.hear /^バス/, (msg) ->
+        robot.hear /^バス$/, (msg) ->
 
                 # msg.send "電車の遅延状況を調べます…"
                 d = new Date

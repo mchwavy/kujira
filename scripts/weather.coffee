@@ -8,8 +8,8 @@
 #   None
 #
 # Commands:
-#  hubot 天気予報 - to know the weather forecasts
-#  hubot weather forecast- to know the weather forecasts
+#  天気予報 - to know the weather forecasts
+#  weather forecast- to know the weather forecasts
 #
 # Notes:
 #
@@ -22,7 +22,7 @@ cityId = "130010"  # 東京
 apiUrl = "http://weather.livedoor.com/forecast/webservice/json/v1?city=#{cityId}"
 
 module.exports = (robot) ->
-        robot.respond /(天気予報|weather forecast)/, (msg) ->
+        robot.hear /^(天気予報|weather forecast)$/, (msg) ->
 
                 # msg.send "天気を調べます…"
         
