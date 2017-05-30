@@ -123,4 +123,3 @@ module.exports = (robot) ->
                                         return
 
                         msg.send "買い物リストに#{title}はありません"
-
