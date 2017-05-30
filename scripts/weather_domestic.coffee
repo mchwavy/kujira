@@ -8,8 +8,8 @@
 #   None
 #
 # Commands:
-#  hubot ○○の天気 -  ○○の天気を知る
-#  hubot 天気情報場所一覧 - 天気を調べられる場所の一覧を知る
+#  ○○の天気 -  ○○の天気を知る
+#  天気情報場所一覧 - 天気を調べられる場所の一覧を知る
 #
 # Notes:
 #
@@ -201,14 +201,14 @@ getWeatherByCity = (msg, cityId) ->
                         msg.send "Response error: #{response.statusCode}"
 
 module.exports = (robot) ->
-        robot.respond /(\S+)の天気/, (msg) ->
+        robot.hear /^(\S+)の天気/, (msg) ->
                 city = msg.match[1]
                 if cityIds[city]?
                         getWeatherByCity msg, cityIds[city]
                 else
                         msg.send "#{city}の天気はわかりません…"
 
-        robot.respond /天気情報場所一覧/, (msg) ->
+        robot.hear /^天気情報場所一覧/, (msg) ->
                 locationList = ""
 
                 locationList += "天気を調べられるのは、次の場所です\n"
