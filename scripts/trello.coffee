@@ -1,8 +1,8 @@
 Trello = require("node-trello")
 
 module.exports = (robot) ->
-        robot.hear /^買い物(\s?)(.*)/i, (msg) ->
-
+        robot.respond /買い物(\s?)(.*)/i, (msg) ->
+                title="#{msg.match[2]"
                 trello = new Trello(process.env.HUBOT_TRELLO_KEY, process.env.HUBOT_TRELLO_TOKEN)
                 trello.post "/1/cards", {
                         name: title
