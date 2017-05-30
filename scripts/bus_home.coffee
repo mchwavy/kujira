@@ -7,10 +7,10 @@
 #   None
 #
 # Commands:
-#  平日の池袋行きバス - 平日の池袋行きバス
-#  土曜の池袋行きバス - 土曜の池袋行きバス
-#  日曜の池袋行きバス - 日曜の池袋行きバス
-#  池袋行きバス - 池袋行きバス直近4本の時間
+#  平日のバス - 平日の池袋行きバス
+#  土曜のバス - 土曜の池袋行きバス
+#  日曜のバス - 日曜の池袋行きバス
+#  バス - 池袋行きバス直近4本の時間
 #
 # Notes:
 #
@@ -114,7 +114,7 @@ for num in [0...busListSunday40.length]
 busListSunday.sort (a,b) -> a - b
 
 module.exports = (robot) ->
-        robot.hear /^平日の池袋行きバス/, (msg) ->
+        robot.hear /^平日のバス/, (msg) ->
 
                 d = new Date
                 # msg.send busListWeekday.length
@@ -133,7 +133,7 @@ module.exports = (robot) ->
                 msg.send "平日の池袋行きバスは#{busFromNow}"
 
 
-        robot.hear /^土曜の池袋行きバス/, (msg) ->
+        robot.hear /^土曜のバス/, (msg) ->
 
                 d = new Date
                 # msg.send busListSaturday.length
@@ -151,7 +151,7 @@ module.exports = (robot) ->
 
                 msg.send "土曜の池袋行きバスは#{busFromNow}"
 
-        robot.hear /^(日曜|祝日)の池袋行きバス/, (msg) ->
+        robot.hear /^(日曜|祝日)のバス/, (msg) ->
 
                 d = new Date
                 # msg.send busListSunday.length
@@ -171,7 +171,7 @@ module.exports = (robot) ->
 
 
 
-        robot.hear /^池袋行きバス/, (msg) ->
+        robot.hear /^バス/, (msg) ->
 
                 # msg.send "電車の遅延状況を調べます…"
                 d = new Date

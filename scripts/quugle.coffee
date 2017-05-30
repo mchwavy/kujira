@@ -5,14 +5,14 @@
 #   None
 #
 # Commands:
-#   hubot 料理 ○○- ○○の料理を調べます。
-#   hubot レシピ ○○- ○○のレシピを調べます。
+#   料理 ○○- ○○の料理を調べます。
+#   レシピ ○○- ○○のレシピを調べます。
 #
 # Author:
 #   mchwavy
 
 module.exports = (robot) ->
-        robot.respond /(料理|レシピ)\s(.*)/, (msg) ->
+        robot.hear /^(料理|レシピ)\s(.*)/, (msg) ->
                 text="quugle.blogspot.jp/search?q="
                 things=msg.match[2]
                 lists=things.split /\s+/

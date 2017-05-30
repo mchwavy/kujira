@@ -7,8 +7,8 @@
 #   None
 #
 # Commands:
-#  hubot 全国の鉄道遅延 - 全国の鉄道遅延情報．
-#  hubot 鉄道遅延 - ご指定の列車の遅延情報．(列車はプログラム内で指定)
+#  全国の鉄道遅延 - 全国の鉄道遅延情報．
+#  鉄道遅延 - ご指定の列車の遅延情報．(列車はプログラム内で指定)
 #
 # Notes:
 #
@@ -26,7 +26,7 @@ trainList =
 apiUrl = "https://rti-giken.jp/fhc/api/train_tetsudo/delay.json"
 
 module.exports = (robot) ->
-        robot.respond /全国の鉄道遅延/, (msg) ->
+        robot.hear /^全国の鉄道遅延/, (msg) ->
 
                 # msg.send "電車の遅延状況を調べます…"
         
@@ -67,7 +67,7 @@ module.exports = (robot) ->
                                 return
 
 
-        robot.respond /\s鉄道遅延/, (msg) ->
+        robot.hear /^鉄道遅延/, (msg) ->
 
                 # msg.send "電車の遅延状況を調べます…"
         
