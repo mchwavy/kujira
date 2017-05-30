@@ -36,8 +36,9 @@ module.exports = (robot) ->
                 request apiUrl, (err, response, body) ->
                 # request.get "#{apiUrl}", (err, response, body) ->
 
-                        if err  # プログラムエラー
-                                throw err
+                        if err
+                                msg.send "データ取得に失敗しました"
+                                return
 
                         if response.statusCode is 200  # 取得成功
                                 # JSONとして解釈する
@@ -63,6 +64,7 @@ module.exports = (robot) ->
                                         msg.send troubleList
                         else  # APIレスポンスエラー
                                 msg.send "Response error: #{response.statusCode}"
+                                return
 
 
         robot.respond /\s鉄道遅延/, (msg) ->
@@ -74,8 +76,9 @@ module.exports = (robot) ->
                 # URLにアクセスしてデータを取得する
                 request apiUrl, (err, response, body) ->
 
-                        if err  # プログラムエラー
-                                throw err
+                        if err
+                                msg.send "データ取得に失敗しました"
+                                return
 
                         if response.statusCode is 200  # 取得成功
                                 # JSONとして解釈する
@@ -102,4 +105,5 @@ module.exports = (robot) ->
 
                         else  # APIレスポンスエラー
                                 msg.send "Response error: #{response.statusCode}"
+                                return
 

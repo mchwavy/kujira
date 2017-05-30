@@ -33,7 +33,8 @@ module.exports = (robot) ->
                 # request.get "#{apiUrl}", (err, response, body) ->
 
                         if err  # プログラムエラー
-                                throw err
+                                msg.send "データ取得に失敗しました"
+                                return
 
                         if response.statusCode is 200  # 取得成功
                                 # JSONとして解釈する
@@ -60,3 +61,4 @@ module.exports = (robot) ->
 
                         else  # APIレスポンスエラー
                                 msg.send "Response error: #{response.statusCode}"
+                                return        

@@ -201,8 +201,9 @@ module.exports = (robot) ->
                 request apiUrl, (err, response, body) ->
                 # request.get "#{apiUrl}", (err, response, body) ->
 
-                        if err  # プログラムエラー
-                                throw err
+                        if err
+                                msg.send "データ取得に失敗しました"
+                                return
 
                         if response.statusCode is 200  # 取得成功
                         # JSONとして解釈する
