@@ -19,21 +19,29 @@
 # 
 
 Trello = require("node-trello")
+exports = this
 
 module.exports = (robot) ->
         robot.hear /^買い物(\s+)(.*)/i, (msg) ->
 
                 title="#{msg.match[2]}"
+                tobuyList=title.split(/\s/)
                 trello = new Trello(process.env.HUBOT_TRELLO_KEY, process.env.HUBOT_TRELLO_TOKEN)
-                trello.post "/1/lists/#{process.env.HUBOT_TRELLO_TOBUY}/cards", {
-                        name: title
-                        due: null 
-                }, (err, data) ->
 
-                        if err
-                                msg.send "保存に失敗しました"
-                                return
-                        msg.send "「#{title}」 をTrelloの買い物リストに保存しました"
+                for num in [0...tobuyList.length]
+
+                        exports.stuff=tobuyList[num]
+
+                        trello.post "/1/lists/#{process.env.HUBOT_TRELLO_TOBUY}/cards", {
+                                name: tobuyList[num]
+                                due: null 
+                        }, (err, data) ->
+
+                                if err
+                                        msg.send "保存に失敗しました"
+                                        return
+
+                                msg.send "#{exports.stuff}をTrelloの買い物リストに保存しました．"
                         
 
         robot.hear /^買い物リスト(\s?)$/i, (msg) ->
@@ -93,6 +101,7 @@ module.exports = (robot) ->
 
                 title="#{msg.match[2]}"
 
+                tobuyList=title.split(/\s/)
                 trello = new Trello(process.env.HUBOT_TRELLO_KEY, process.env.HUBOT_TRELLO_TOKEN)
 
                 trello.get "/1/lists/#{process.env.HUBOT_TRELLO_TOBUY}/cards", {
@@ -108,25 +117,26 @@ module.exports = (robot) ->
                         catch e
                                 msg.send "JSON parse error: #{e}"
 
-                        listMessage="買い物リストです\n"
-                        for num in [0...json.length]
+                        # msg.send "length: #{tobuyList.length} \n"
 
+                        for num in [0...json.length]
+                                # msg.send "#{json[num].name} #{title]}"
                                 if json[num].name is title
                                         # msg.send "買い物リストから#{title}を消します"
                                         # msg.send "#{title}のIDは: #{json[num].id}"
-                                        
+
                                         trello.put "/1/cards/#{json[num].id}/closed", {
                                                 value: true
                                         }, (err, data) ->
-
-                                        if err
-                                                msg.send "消すのに失敗しました"
+        
+                                                if err
+                                                        msg.send "消すのに失敗しました"
+                                                        return
+                                
+                                                msg.send "Trelloの買い物リストにある「#{title}」を消しました"
                                                 return
 
-                                        msg.send "Trelloの買い物リストにある「#{title}」を消しました"
-                                        return
-
-                        msg.send "買い物リストに#{title}はありません"
+                        # msg.send "買い物リストに#{title}はありません"
 
 
         # 定期処理をするオブジェクトを宣言
@@ -171,7 +181,7 @@ module.exports = (robot) ->
                                 if num < json.length-1
                                         listMessage +="，"
 
-                        listMessage+="\n 買い終わったら，「買った ○○」と言って下さい．\n リストから消します．"
+                        listMessage+="\n 買い終わったら，「買った ○○」と言って下さい．"
 
                         send '#general', "#{listMessage}"
 
