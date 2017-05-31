@@ -138,12 +138,12 @@ module.exports = (robot) ->
 
         # Crontabの設定方法と基本一緒 *(sec) *(min) *(hour) *(day) *(month) *(day of the week)
         # #your_channelと言う部屋に、平日の18:30時に実行
-        new cronJob('0 26 11 * * *', () ->
+        new cronJob('0 0 12 * * *', () ->
                 # ↑のほうで宣言しているsendメソッドを実行する
-                send '#kujira_channel', "@michio 買い物リストに加えるものはありませんか?\n もしあれば，「買い物 ○○」と言って下さい．"
+                send '#general', "@michio @misaki 買い物リストに加えるものはありませんか?\n もしあれば，「買い物 ○○」と言って下さい．"
         ).start()
 
-        new cronJob('0 25 11 * * *', () ->
+        new cronJob('0 0 16 * * *', () ->
 
                 trello = new Trello(process.env.HUBOT_TRELLO_KEY, process.env.HUBOT_TRELLO_TOKEN)
 
@@ -164,7 +164,7 @@ module.exports = (robot) ->
                                 send '#kujira_channel', "買い物リストは空です．"
                                 return
 
-                        listMessage="買い物リストを送ります．\n"
+                        listMessage="@michio @misaki 買い物リストを送ります．\n"
                         for num in [0...json.length]
                                 # msg.send "list id: #{json[num].id}"
                                 listMessage+="#{json[num].name}"
@@ -173,7 +173,7 @@ module.exports = (robot) ->
 
                         listMessage+="\n 買い終わったら，「買った ○○」と言って下さい．\n リストから消します．"
 
-                        send '#kujira_channel', "#{listMessage}"
+                        send '#general', "#{listMessage}"
 
                 # ↑のほうで宣言しているsendメソッドを実行する
                 # send '#kujira_channel', "@michio 買い物リストに加えるものはありませんか?\n もしあれば，「買い物 ○○」と言って下さい．"
