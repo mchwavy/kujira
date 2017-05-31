@@ -143,7 +143,7 @@ module.exports = (robot) ->
                 send '#kujira_channel', "@michio 買い物リストに加えるものはありませんか?\n もしあれば，「買い物 ○○」と言って下さい．"
         ).start()
 
-        new cronJob('0 18 11 * * *', () ->
+        new cronJob('0 20 11 * * *', () ->
 
                 trello = new Trello(process.env.HUBOT_TRELLO_KEY, process.env.HUBOT_TRELLO_TOKEN)
 
