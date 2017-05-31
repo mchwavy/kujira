@@ -143,23 +143,25 @@ module.exports = (robot) ->
                 send '#kujira_channel', "@michio 買い物リストに加えるものはありませんか?\n もしあれば，「買い物 ○○」と言って下さい．"
         ).start()
 
-        new cronJob('0 10 11 * * *', () ->
+        new cronJob('0 18 11 * * *', () ->
+
                 trello = new Trello(process.env.HUBOT_TRELLO_KEY, process.env.HUBOT_TRELLO_TOKEN)
+
                 trello.get "/1/lists/#{process.env.HUBOT_TRELLO_TOBUY}/cards", {
                 }, (err, data) ->
 
                         if err
-                                send '#kujira_channel' "リスト取得に失敗しました"
+                                send '#kujira_channel', "リスト取得に失敗しました"
                                 return
 
                         jdata=JSON.stringify(data)
                         try
                                 json=JSON.parse(jdata)
                         catch e
-                                send '#kujira_channel' "JSON parse error: #{e}"
+                                send '#kujira_channel', "JSON parse error: #{e}"
 
                         if json.length is 0
-                                send '#kujira_channel' "買い物リストは空です．"
+                                send '#kujira_channel', "買い物リストは空です．"
                                 return
 
                         listMessage="買い物リストを送ります．\n"
@@ -169,8 +171,8 @@ module.exports = (robot) ->
                                 if num < json.length-1
                                         listMessage +="，"
 
-                        send '#kujira_channel' "#{listMessage}"
+                        send '#kujira_channel', "#{listMessage}"
 
                 # ↑のほうで宣言しているsendメソッドを実行する
-                send '#kujira_channel', "@michio 買い物リストに加えるものはありませんか?\n もしあれば，「買い物 ○○」と言って下さい．"
+                # send '#kujira_channel', "@michio 買い物リストに加えるものはありませんか?\n もしあれば，「買い物 ○○」と言って下さい．"
         ).start()
