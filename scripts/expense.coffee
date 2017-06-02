@@ -11,7 +11,7 @@
 #   mchwavy
 
 module.exports = (robot) ->
-        robot.hear /^家計簿/, (msg) ->
+        robot.hear /^家計簿$/, (msg) ->
                 text="https://goo.gl/forms/"
                 text+="#{process.env.HUBOT_GOOGLE_FORM_EXPENSE}"
 
