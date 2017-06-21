@@ -41,7 +41,7 @@ module.exports = (robot) ->
                                         msg.send "保存に失敗しました"
                                         return
 
-                                msg.send "#{exports.stuff}をTrelloの買い物リストに保存しました．"
+                                msg.send "#{exports.stuff}をTrelloの買い物リストに保存しました。"
                         
 
         robot.hear /^買い物リスト(\s?)$/i, (msg) ->
@@ -61,7 +61,7 @@ module.exports = (robot) ->
                                 msg.send "JSON parse error: #{e}"
 
                         if json.length is 0
-                                msg.send "買い物リストは空です．"
+                                msg.send "買い物リストは空です。"
                                 return
                                 
                         listMessage="買い物リストです\n"
@@ -69,7 +69,7 @@ module.exports = (robot) ->
                                 # msg.send "list id: #{json[num].id}"
                                 listMessage+="#{json[num].name}"
                                 if num < json.length-1
-                                        listMessage +="，"
+                                        listMessage +="、"
 
                         msg.send "#{listMessage}"
 
@@ -150,7 +150,7 @@ module.exports = (robot) ->
         # #your_channelと言う部屋に、平日の18:30時に実行
         new cronJob('0 0 12 * * *', () ->
                 # ↑のほうで宣言しているsendメソッドを実行する
-                send '#general', "@michio @misaki 買い物リストに加えるものはありませんか?\n もしあれば，「買い物 ○○」と言って下さい．"
+                send '#general', "@michio @misaki 買い物リストに加えるものはありませんか?\n もしあれば、「買い物 ○○」と言って情報を共有しましょう。"
         ).start()
 
         new cronJob('0 0 16 * * *', () ->
@@ -171,17 +171,17 @@ module.exports = (robot) ->
                                 send '#kujira_channel', "JSON parse error: #{e}"
 
                         if json.length is 0
-                                send '#kujira_channel', "買い物リストは空です．"
+                                send '#kujira_channel', "買い物リストは空です。"
                                 return
 
-                        listMessage="@michio @misaki 買い物リストを送ります．\n"
+                        listMessage="@michio @misaki 買い物リストを送ります。\n"
                         for num in [0...json.length]
                                 # msg.send "list id: #{json[num].id}"
                                 listMessage+="#{json[num].name}"
                                 if num < json.length-1
                                         listMessage +="，"
 
-                        listMessage+="\n 買い終わったら，「買った ○○」と言って下さい．"
+                        listMessage+="\n 買い終わったら、「買った ○○」と言って下さい。"
 
                         send '#general', "#{listMessage}"
 
