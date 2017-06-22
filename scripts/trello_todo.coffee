@@ -221,7 +221,7 @@ module.exports = (robot) ->
                                         listMessage +="，"
 
                         listMessage+="\n 早めにやってしまいましょう。"
-                        listMessage+="\n #{process.env.HUBOT_TRELLO_WORK_URL}""
+                        # listMessage+="\n #{process.env.HUBOT_TRELLO_WORK_URL}""
 
                         send '#michio_work', "#{listMessage}"
 
