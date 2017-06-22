@@ -164,7 +164,7 @@ module.exports = (robot) ->
                 send '#michio_work', "@michio やることリストに加えるものはありませんか?\n もしあれば、「やること ○○」と言って下さい。"
         ).start()
 
-        new cronJob('0 47 14 * * *', () ->
+        new cronJob('0 50 14 * * *', () ->
 
                 trello = new Trello(process.env.HUBOT_TRELLO_KEY, process.env.HUBOT_TRELLO_TOKEN)
 
@@ -221,6 +221,7 @@ module.exports = (robot) ->
                                         listMessage +="，"
 
                         listMessage+="\n 早めにやってしまいましょう。"
+                        listMessage+="\n #{process.env.HUBOT_TRELLO_WORK_URL}""
 
                         send '#michio_work', "#{listMessage}"
 
