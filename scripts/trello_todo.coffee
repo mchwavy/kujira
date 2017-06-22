@@ -159,12 +159,12 @@ module.exports = (robot) ->
 
         # Crontabの設定方法と基本一緒 *(sec) *(min) *(hour) *(day) *(month) *(day of the week)
         # #your_channelと言う部屋に、平日の18:30時に実行
-        new cronJob('0 30 17 * * *', () ->
+        new cronJob('0 30 17 * * 1-5', () ->
                 # ↑のほうで宣言しているsendメソッドを実行する
                 send '#michio_work', "@michio やることリストに加えるものはありませんか?\n もしあれば、「やること ○○」と言って下さい。"
         ).start()
 
-        new cronJob('0 0 9 * * *', () ->
+        new cronJob('0 0 9 * * 1-5', () ->
 
                 trello = new Trello(process.env.HUBOT_TRELLO_KEY, process.env.HUBOT_TRELLO_TOKEN)
 
