@@ -71,7 +71,7 @@ module.exports = (robot) ->
 
                 apiUrl="https://slack.com/api/channels.history?token=#{process.env.HUBOT_SLACK_WORK_TOKEN}&channel=#{process.env.HUBOT_SLACK_WORK_CHANNEL}&oldest=#{tsMidnight}&pretty=1"
 
-                msg.send "日報を作成します"
+                msg.send "日報を作成します #{process.env.HUBOT_SLACK_WORK_TOKEN} #{process.env.HUBOT_SLACK_WORK_CHANNEL}"
                 # msg.send "#{apiUrl}"
 
                 request = require "request"
