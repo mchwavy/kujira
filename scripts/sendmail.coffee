@@ -7,8 +7,8 @@ message_from = process.env.HUBOT_MAIL_FROM
 message_to = process.env.HUBOT_MAIL_TO
 message_title = 'test'
 
-# sendmail = () ->
-#         message_text = "This is a test"
+sendmail = () ->
+        message_text = "This is a test"
 
 #         mailgun.messages().send(
 #                 from: message_from
@@ -21,6 +21,6 @@ message_title = 'test'
 #                         console.log(body)
 #         )
 
-# module.exports = (robot) ->
-#         robot.hear /^sendmail/, (msg) ->
-#                 sendmail()
+module.exports = (robot) ->
+        robot.hear /^sendmail/, (msg) ->
+                sendmail()
