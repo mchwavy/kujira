@@ -45,7 +45,7 @@ sendmail = (msg, mailSubject, listMessage) ->
         )
 
 module.exports = (robot) ->
-        robot.hear /^日報/, (msg) ->
+        robot.hear /^日報を作って/, (msg) ->
 
                 # msg.send "タイムスタンプを設定します"
 
