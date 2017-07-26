@@ -12,7 +12,7 @@
 #  hubot show bdays - to get full list of user birthdays
 #  hubot 誕生日リスト - みんなの誕生日がわかる
 #  hubot show next bdays - lists upcoming birthdays
-#  hubot 今後の誕生日 - 今後のみんなの誕生日が，あと何日かわかる
+#  hubot 今後の誕生日 - 今後のみんなの誕生日が、あと何日かわかる
 #
 # Notes:
 #
@@ -47,7 +47,7 @@ module.exports = (robot) ->
                         say = """
                         ```
                         (^o^)/~~
-                        #{month} 月 #{day} 日は，#{slackname} の誕生日だよ!
+                        #{month} 月 #{day} 日は、#{slackname} の誕生日だよ!
                         ```
                         Happy Birthday @#{slackname}!
                         """
@@ -129,7 +129,7 @@ module.exports = (robot) ->
                         diffMs = nextbd.getTime() - today.getTime()
                         days = parseInt(diffMs / (24*60*60*1000), 10)
 
-                        msg.send "#{slackname}の誕生日は #{month} 月 #{day} 日で，あと #{days} 日です"
+                        msg.send "#{slackname}の誕生日は #{month} 月 #{day} 日で、あと #{days} 日です"
 
 #todo 残りの日数でソートする。
 
