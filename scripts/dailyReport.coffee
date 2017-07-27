@@ -41,7 +41,7 @@ sendmail = (msg, mailSubject, listMessage) ->
                         # console.log '--------------------'
                         # console.log message_from, message_to
                         # console.log(body)
-                        msg.send "Evernoteに送りました．"
+                        msg.send "Evernoteに送りました。"
         )
 
 module.exports = (robot) ->
