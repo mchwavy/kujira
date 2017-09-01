@@ -2,12 +2,12 @@
 # A Hubot script that tells your party members' birthday
 #
 # Dependencies:
-#        hubot-slack-api
 #        mailgun
 # Configuration:
 #  None
 #
 # Commands:
+#  ケータイ ○○ ケータイにメッセージを送る。
 #
 # Notes:
 # I don't know how to use hubot-slack-api...
