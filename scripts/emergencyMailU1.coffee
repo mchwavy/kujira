@@ -35,7 +35,7 @@ sendmail = (msg, mailSubject, listMessage) ->
                         # console.log '--------------------'
                         # console.log message_from, message_to
                         # console.log(body)
-                        msg.send "ケータイに送りました。#{message_from} #{message_to} #{mailSubject}"
+                        msg.send "ケータイに送りました。"
         )
 
 module.exports = (robot) ->
