@@ -48,7 +48,7 @@ module.exports = (robot) ->
 
                 # msg.send "日報を作成します"
                 # msg.send "#{apiUrl}"
-                msg.send "#{body}"
+                # msg.send "#{body}"
 
                 listMessage=body
 
