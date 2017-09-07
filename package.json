@@ -5,6 +5,7 @@
   "author": "mchwavy",
   "description": "Bot for mchwavy",
   "dependencies": {
+    "@line/bot-sdk": "^2.0.0",
     "buffer": "^5.0.6",
     "cheerio": "^1.0.0-rc.1",
     "cron": "^1.2.1",

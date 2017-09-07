@@ -1,5 +1,5 @@
 # Description
-# A Hubot script that tells your party members' birthday
+# Send a mail to his cell phone.
 #
 # Dependencies:
 #        mailgun
@@ -46,9 +46,7 @@ module.exports = (robot) ->
 
                 mailSubject="kujira からメールです"
 
-                # msg.send "日報を作成します"
-                # msg.send "#{apiUrl}"
-                # msg.send "#{body}"
+                # msg.send ""
 
                 listMessage=body
 
