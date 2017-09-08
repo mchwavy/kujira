@@ -25,7 +25,10 @@ pad = (num, width) ->
                 num = "0" + num
         num
 
-getApiUrl = (pday) ->
+getData = (pday, msg) ->
+
+        d = new Date
+
         d = new Date
 
         year  = d.getFullYear()     # 年（西暦）
@@ -37,15 +40,8 @@ getApiUrl = (pday) ->
         apiUrl = "http://api.nhk.or.jp/v2/pg/list/#{area}/#{service}/#{dayStr}.json?key=#{key}"
         # msg.send "#{apiUrl}"
 
-getData = (apiUrl, pday, msg) ->
-
-        d = new Date
-
-        month = d.getMonth() + 1    # 月
-        date  = d.getDate() + pday  # 日
-
         dayStrOut  = "#{pad month, 2}-#{pad date, 2}"
-
+        
         request = require "request"
 
         request apiUrl, (err, response, body) ->
@@ -55,7 +51,7 @@ getData = (apiUrl, pday, msg) ->
                 
                 if err  # プログラムエラー
                         # msg.send "データ取得に失敗しました"
-                        mst.send =  "データ取得に失敗しました"
+                        msg.send =  "データ取得に失敗しました"
 
                 if response.statusCode is 200  # 取得成功
                         # JSONとして解釈する
@@ -66,23 +62,24 @@ getData = (apiUrl, pday, msg) ->
 
                         # msg.send "#{json.list.e1.length}"
 
+                        icount = 0
                         for num in [0...json.list.e1.length]
                                 # msg.send "#{json.list.e1[num].title[0..7]}"
                                 if json.list.e1[num].title[0..7] is "びじゅチューン！"
                                         # msg.send "#{json.list.e1[num].id}"
-                                        str = "びじゅチューンは，#{json.list.e1[num].start_time}から \n"
+                                        icount += 1
+                                        str = "びじゅチューンは，#{json.list.e1[num].start_time}から！ \n"
                                         str += "#{json.list.e1[num].title}\n"
                                         str += "#{json.list.e1[num].subtitle}\n"
                                         str += "#{json.list.e1[num].content}"
                                         msg.send "#{str}"
                                         return
 
-                        msg.send "#{dayStrOut}はびじゅチューンはありません"
-                        return
-
+                        if icount is 0
+                                msg.send "#{dayStrOut}はびじゅチューンはありません"
                 
                 else  # APIレスポンスエラー
-                        msg.send = "Response error: #{response.statusCode}"
+                        msg.send "Response error: #{response.statusCode}"
                         
 cronJob = require('cron').CronJob
 
@@ -91,31 +88,27 @@ module.exports = (robot) ->
 
                 # msg.send "番組を調べます…"
                 pday = 0
-                apiUrl = getApiUrl(pday)
                 # msg.send "#{apiUrl}"
-                getData apiUrl, pday, msg
+                getData pday, msg
 
         robot.hear /^(明日のびじゅチューン)$/, (msg) ->
 
                 # msg.send "番組を調べます…"
                 pday = 1
-                apiUrl = getApiUrl (pday)
                 # msg.send "#{apiUrl}"
-                getData apiUrl, pday, msg
+                getData pday, msg
 
         robot.hear /^(明後日のびじゅチューン)$/, (msg) ->
 
                 # msg.send "番組を調べます…"
                 pday = 2
-                apiUrl = getApiUrl(pday)
                 # msg.send "#{apiUrl}"
-                getData apiUrl, pday, msg
+                getData pday, msg
 
         robot.hear /^(今後のびじゅチューン)$/, (msg) ->
 
-                for iday in [0..7]
-                        apiUrl = getApiUrl(iday)
-                        getData apiUrl, iday, msg
+                for pday in [0..7]
+                        getData pday, msg
 
 
 # module.exports = (robot) ->
