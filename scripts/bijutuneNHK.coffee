@@ -32,8 +32,6 @@ getData = (pday, msg) ->
 
         d = new Date
 
-        d = new Date
-
         year  = d.getFullYear()     # 年（西暦）
         month = d.getMonth() + 1    # 月
         date  = d.getDate() + pday  # 日
@@ -84,7 +82,7 @@ getData = (pday, msg) ->
                 else  # APIレスポンスエラー
                         msg.send "Response error: #{response.statusCode}"
                         
-cronJob = require('cron').CronJob
+# cronJob = require('cron').CronJob
 
 module.exports = (robot) ->
         robot.hear /^((今日の|)びじゅチューン)$/, (msg) ->
@@ -117,13 +115,13 @@ module.exports = (robot) ->
 # module.exports = (robot) ->
 
 #         # 特定のチャンネルへ送信するメソッド(定期実行時に呼ばれる)　
-        send = (channel, msg) ->
-                robot.send {room: channel}, msg
+        # send = (channel, msg) ->
+        #         robot.send {room: channel}, msg
 
 #         # Crontabの設定方法と基本一緒 *(sec) *(min) *(hour) *(day) *(month) *(day of the week)
 #         # generalと言う部屋に、月木の16:10時に実行
-        new cronJob('0 48 16 * * *', () ->
-                # ↑のほうで宣言しているsendメソッドを実行する
-                send '#michio_private', "今日のびじゅチューン"
-        ).start()
+        # new cronJob('0 48 16 * * *', () ->
+        #         # ↑のほうで宣言しているsendメソッドを実行する
+        #         send '#general', "今日のびじゅチューン"
+        # ).start()
 
