@@ -96,7 +96,7 @@ module.exports = (robot) ->
 
         # Crontabの設定方法と基本一緒 *(sec) *(min) *(hour) *(day) *(month) *(day of the week)
         # generalと言う部屋に、月木の16:10時に実行
-        new cronJob('0 18 12 * * *', () ->
+        new cronJob('0 21 12 * * *', () ->
                 # ↑のほうで宣言しているsendメソッドを実行する
                 # msg.send "番組を調べます…"
                 pday = 0
