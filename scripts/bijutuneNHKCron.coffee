@@ -44,7 +44,7 @@ module.exports = (robot) ->
                 dayStr  = "#{year}-#{pad month, 2}-#{pad date, 2}"
         
                 apiUrl = "http://api.nhk.or.jp/v2/pg/list/#{area}/#{service}/#{dayStr}.json?key=#{key}"
-                # msg.send "#{apiUrl}"
+                send '#michio_private', "#{apiUrl}"
 
                 dayStrOut  = "#{pad month, 2}-#{pad date, 2}"
         
@@ -56,8 +56,6 @@ module.exports = (robot) ->
                         str = ""
                 
                         if err  # プログラムエラー
-                                # msg.send "データ取得に失敗しました"
-                                # msg.send =  "データ取得に失敗しました"
                                 send '#michio_private', "データ取得に失敗しました"
 
                         if response.statusCode is 200  # 取得成功
@@ -65,7 +63,6 @@ module.exports = (robot) ->
                                 try
                                         json = JSON.parse(body)
                                 catch e
-                                        # msg.send "JSON parse error: #{e}"
                                         send '#michio_private', "JSON parse error: #{e}"
 
                                 # msg.send "#{json.list.e1.length}"
@@ -85,23 +82,22 @@ module.exports = (robot) ->
                                                 return
         
                                 if icount is 0
-                                        # msg.send "#{dayStrOut}はびじゅチューンはありません"
                                         send '#michio_private', "#{dayStrOut}はびじゅチューンはありません"
                 
                         else  # APIレスポンスエラー
-                                # msg.send "Response error: #{response.statusCode}"
                                 send '#michio_private', "Response error: #{response.statusCode}"
                         
 
 
         # Crontabの設定方法と基本一緒 *(sec) *(min) *(hour) *(day) *(month) *(day of the week)
         # generalと言う部屋に、月木の16:10時に実行
-        new cronJob('0 28 12 * * *', () ->
+        new cronJob('0 32 12 * * *', () ->
                 # ↑のほうで宣言しているsendメソッドを実行する
-                # msg.send "番組を調べます…"
+                send '#michio_private', "番組を調べます…"
                 pday = 0
                 getData pday
 
+                send '#michio_private', "番組を調べます…"
                 pday = 1
                 getData pday
                 ).start()
