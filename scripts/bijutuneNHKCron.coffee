@@ -41,13 +41,14 @@ module.exports = (robot) ->
                 year  = d.getFullYear()     # 年（西暦）
                 month = d.getMonth() + 1    # 月
                 date  = d.getDate() + pday  # 日
-
+                dayOfWeek = d.getDay()      # 曜日
+                dayOfWeekStr = ["日", "月", "火", "水", "木", "金", "土"]
                 dayStr  = "#{year}-#{pad month, 2}-#{pad date, 2}"
         
                 apiUrl = "http://api.nhk.or.jp/v2/pg/list/#{area}/#{service}/#{dayStr}.json?key=#{key}"
-                send "#{sChannel}", "#{apiUrl}"
+                # send "#{sChannel}", "#{apiUrl}"
 
-                dayStrOut  = "#{pad month, 2}-#{pad date, 2}"
+                dayStrOut  = "#{pad month, 2}-#{pad date, 2}-#{dayOfWeekStr[dayOfWeek]}"
         
                 request = require "request"
 
@@ -91,7 +92,7 @@ module.exports = (robot) ->
 
         # Crontabの設定方法と基本一緒 *(sec) *(min) *(hour) *(day) *(month) *(day of the week)
         # generalと言う部屋に、月木の16:10時に実行
-        new cronJob('0 44 12 * * *', () ->
+        new cronJob('0 51 12 * * *', () ->
                 # ↑のほうで宣言しているsendメソッドを実行する
                 send "#{sChannel}", "番組を調べます…"
                 pday = 0
