@@ -33,7 +33,7 @@ module.exports = (robot) ->
         send = (channel, msg) ->
                 robot.send {room: channel}, msg
 
-        getData = (pday) ->
+        getData = (pday, channel) ->
         
                 d = new Date
 
@@ -44,7 +44,7 @@ module.exports = (robot) ->
                 dayStr  = "#{year}-#{pad month, 2}-#{pad date, 2}"
         
                 apiUrl = "http://api.nhk.or.jp/v2/pg/list/#{area}/#{service}/#{dayStr}.json?key=#{key}"
-                send '#michio_private', "#{apiUrl}"
+                send '#{channel}', "#{apiUrl}"
 
                 dayStrOut  = "#{pad month, 2}-#{pad date, 2}"
         
@@ -56,14 +56,14 @@ module.exports = (robot) ->
                         str = ""
                 
                         if err  # プログラムエラー
-                                send '#michio_private', "データ取得に失敗しました"
+                                send '#{channel}', "データ取得に失敗しました"
 
                         if response.statusCode is 200  # 取得成功
                                 # JSONとして解釈する
                                 try
                                         json = JSON.parse(body)
                                 catch e
-                                        send '#michio_private', "JSON parse error: #{e}"
+                                        send '#{channel}', "JSON parse error: #{e}"
 
                                 # msg.send "#{json.list.e1.length}"
 
@@ -77,29 +77,29 @@ module.exports = (robot) ->
                                                 str += "#{json.list.e1[num].title}\n"
                                                 str += "#{json.list.e1[num].subtitle}\n"
                                                 str += "#{json.list.e1[num].content}"
-                                                # msg.send "#{str}"
-                                                send '#michio_private', "#{str}"
+                                                send '#{channel}', "#{str}"
                                                 return
         
                                 if icount is 0
-                                        send '#michio_private', "#{dayStrOut}はびじゅチューンはありません"
+                                        send '#{channel}', "#{dayStrOut}はびじゅチューンはありません"
                 
                         else  # APIレスポンスエラー
-                                send '#michio_private', "Response error: #{response.statusCode}"
+                                send '#{channel}', "Response error: #{response.statusCode}"
                         
 
 
         # Crontabの設定方法と基本一緒 *(sec) *(min) *(hour) *(day) *(month) *(day of the week)
         # generalと言う部屋に、月木の16:10時に実行
-        new cronJob('0 32 12 * * *', () ->
+        new cronJob('0 36 12 * * *', () ->
                 # ↑のほうで宣言しているsendメソッドを実行する
-                send '#michio_private', "番組を調べます…"
+                channel = "#michio_private"
+                send '#{channel}', "番組を調べます…"
                 pday = 0
-                getData pday
+                getData pday, channel
 
-                send '#michio_private', "番組を調べます…"
+                send '#{channel}', "番組を調べます…"
                 pday = 1
-                getData pday
+                getData pday, channel
                 ).start()
 
 
