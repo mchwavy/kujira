@@ -114,14 +114,14 @@ module.exports = (robot) ->
 
 # module.exports = (robot) ->
 
-#         # 特定のチャンネルへ送信するメソッド(定期実行時に呼ばれる)　
+        # 特定のチャンネルへ送信するメソッド(定期実行時に呼ばれる)　
         # send = (channel, msg) ->
-        #         robot.send {room: channel}, msg
+                # robot.send {room: channel}, msg
 
 #         # Crontabの設定方法と基本一緒 *(sec) *(min) *(hour) *(day) *(month) *(day of the week)
 #         # generalと言う部屋に、月木の16:10時に実行
         # new cronJob('0 48 16 * * *', () ->
-        #         # ↑のほうで宣言しているsendメソッドを実行する
-        #         send '#general', "今日のびじゅチューン"
-        # ).start()
+                # ↑のほうで宣言しているsendメソッドを実行する
+                # send '#private', "今日のびじゅチューン"
+                # ).start()
 
