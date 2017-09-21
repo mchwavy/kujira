@@ -18,7 +18,7 @@
 area = "130"  # 東京
 service = "e1"  # Eテレ
 key = process.env.HUBOT_NHK_KEY
-sChannel = "#michio_private"
+sChannel = "#general"
 
 pad = (num, width) ->
         num += ""
@@ -48,7 +48,7 @@ module.exports = (robot) ->
                 apiUrl = "http://api.nhk.or.jp/v2/pg/list/#{area}/#{service}/#{dayStr}.json?key=#{key}"
                 # send "#{sChannel}", "#{apiUrl}"
 
-                dayStrOut  = "#{pad month, 2}-#{pad date, 2}-#{dayOfWeekStr[dayOfWeek]}"
+                dayStrOut  = "#{pad month, 2}-#{pad date, 2} (#{dayOfWeekStr[dayOfWeek]})"
         
                 request = require "request"
 
@@ -92,7 +92,7 @@ module.exports = (robot) ->
 
         # Crontabの設定方法と基本一緒 *(sec) *(min) *(hour) *(day) *(month) *(day of the week)
         # generalと言う部屋に、月木の16:10時に実行
-        new cronJob('0 51 12 * * *', () ->
+        new cronJob('0 0 18 * * 2', () ->
                 # ↑のほうで宣言しているsendメソッドを実行する
                 send "#{sChannel}", "番組を調べます…"
                 pday = 0
