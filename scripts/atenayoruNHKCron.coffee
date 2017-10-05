@@ -16,7 +16,7 @@
 # cityId一覧: http://weather.livedoor.com/forecast/rss/primary_area.xml
 # URLにアクセスしてデータを取得する
 area = "130"  # 東京
-service = "e1"  # Eテレ
+service = "s3"  # BSプレミアム
 key = process.env.HUBOT_NHK_KEY
 sChannel = "#general"
 
@@ -72,10 +72,10 @@ module.exports = (robot) ->
                                 icount = 0
                                 for num in [0...json.list.e1.length]
                                         # msg.send "#{json.list.e1[num].title[0..7]}"
-                                        if json.list.e1[num].title[0..7] is "びじゅチューン！"
+                                        if json.list.e1[num].title[0..7] is "あてなよる"
                                                 # msg.send "#{json.list.e1[num].id}"
                                                 icount += 1
-                                                str = "びじゅチューンは，#{json.list.e1[num].start_time}から！ \n"
+                                                str = "あてなよるは，#{json.list.e1[num].start_time}から！ \n"
                                                 str += "#{json.list.e1[num].title}\n"
                                                 str += "#{json.list.e1[num].subtitle}\n"
                                                 str += "#{json.list.e1[num].content}"
@@ -83,7 +83,7 @@ module.exports = (robot) ->
                                                 return
         
                                 if icount is 0
-                                        send "#{sChannel}", "#{dayStrOut}はびじゅチューンはありません"
+                                        send "#{sChannel}", "#{dayStrOut}はあてなよるはありません"
                 
                         else  # APIレスポンスエラー
                                 send "#{sChannel}", "Response error: #{response.statusCode}"
@@ -92,13 +92,13 @@ module.exports = (robot) ->
 
         # Crontabの設定方法と基本一緒 *(sec) *(min) *(hour) *(day) *(month) *(day of the week)
         # generalと言う部屋に、月木の16:10時に実行
-        new cronJob('0 0 18 * * 2', () ->
+        new cronJob('0 0 7 * * 6', () ->
                 # ↑のほうで宣言しているsendメソッドを実行する
-                send "#{sChannel}", "今日のびじゅチューンを調べます…"
+                send "#{sChannel}", "今日のあてなよるを調べます…"
                 pday = 0
                 getData pday, sChannel
 
-                send "#{sChannel}", "明日のびじゅチューンを調べます…"
+                send "#{sChannel}", "明日のあてなよるを調べます…"
                 pday = 1
                 getData pday, sChannel
                 ).start()
