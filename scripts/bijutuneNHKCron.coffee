@@ -94,11 +94,11 @@ module.exports = (robot) ->
         # generalと言う部屋に、月木の16:10時に実行
         new cronJob('0 0 18 * * 2', () ->
                 # ↑のほうで宣言しているsendメソッドを実行する
-                send "#{sChannel}", "番組を調べます…"
+                send "#{sChannel}", "今日のびじゅチューンを調べます…"
                 pday = 0
                 getData pday, sChannel
 
-                send "#{sChannel}", "番組を調べます…"
+                send "#{sChannel}", "明日のびじゅチューンを番組を調べます…"
                 pday = 1
                 getData pday, sChannel
                 ).start()
