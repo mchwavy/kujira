@@ -77,7 +77,7 @@ module.exports = (robot) ->
                                                 icount += 1
                                                 str = "びじゅチューンは，#{json.list.e1[num].start_time}から！ \n"
                                                 str += "#{json.list.e1[num].title}\n"
-                                                str += "#{json.list.e1[num].subtitle}\n"
+                                                # str += "#{json.list.e1[num].subtitle}\n"
                                                 str += "#{json.list.e1[num].content}"
                                                 send "#{sChannel}", "#{str}"
                                                 return
