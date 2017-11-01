@@ -1,5 +1,5 @@
 # Description
-# A Hubot script that tells your party members' birthday
+# A Hubot script that makes daily report on Evernote 
 #
 # Dependencies:
 #        hubot-slack-api
