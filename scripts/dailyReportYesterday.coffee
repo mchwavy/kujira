@@ -70,8 +70,8 @@ module.exports = (robot) ->
                 # msg.send "tsNow: #{tsNow}, tsMidnight: #{tsMidnight}"
 
                 dYD = new Date
-                dYD.setTime (dYD.getTime() - 86400 * 1000)
-                year = dYD.getFullYear ()
+                dYD.setTime(dYD.getTime() - 86400 * 1000)
+                year = dYD.getFullYear()
                 month = dYD.getMonth() + 1
                 date = dYD.getDate()
 
