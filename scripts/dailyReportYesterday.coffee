@@ -64,9 +64,16 @@ module.exports = (robot) ->
 
                 midnightTime="#{year}-#{month}-#{date} 0:0:0.000"
                 dMidnight = new Date(midnightTime)
+
                 tsMidnight = Math.round(dMidnight.getTime()*1e-3)
                 tsYDMidnight = tsMidnight - 86400
                 # msg.send "tsNow: #{tsNow}, tsMidnight: #{tsMidnight}"
+
+                dYD = new Date
+                dYD.setTime (dYD.getTime() - 86400 * 1000)
+                year = dYD.getFullYear ()
+                month = dYD.getMonth() + 1
+                date = dYD.getDate()
 
                 mailSubject="#{year}-#{pad month, 2}-#{pad date, 2} @0201_Logbook"
 
