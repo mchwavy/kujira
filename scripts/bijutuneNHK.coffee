@@ -119,9 +119,9 @@ module.exports = (robot) ->
                 # robot.send {room: channel}, msg
 
 #         # Crontabの設定方法と基本一緒 *(sec) *(min) *(hour) *(day) *(month) *(day of the week)
-#         # generalと言う部屋に、月木の16:10時に実行
+#         # tvと言う部屋に、月木の16:10時に実行
         # new cronJob('0 48 16 * * *', () ->
                 # ↑のほうで宣言しているsendメソッドを実行する
-                # send '#private', "今日のびじゅチューン"
+                # send '#tv', "今日のびじゅチューン"
                 # ).start()
 
