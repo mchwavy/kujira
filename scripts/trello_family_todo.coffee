@@ -181,7 +181,7 @@ module.exports = (robot) ->
                                 if num < json.length-1
                                         listMessage +="，"
 
-                        listMessage+="\n 家事リストに加えるときは、「家事 ○○」と言って下さい。"
+                        listMessage+="\n 家事リストに加えるときは、「家事やって ○○」と言って下さい。"
                         listMessage+="\n 家事をやったら、「家事やった ○○」と言って下さい。"
 
                         send '#general', "#{listMessage}"
