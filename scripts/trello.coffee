@@ -159,7 +159,7 @@ module.exports = (robot) ->
 
                         # msg.send "買い物リストに#{title}はありません"
 
-        robot.hear /^(.*)(を|\s+)買った$/i, (msg) ->
+        robot.hear /^(.*)(を|(\s+))買った$/i, (msg) ->
 
                 title="#{msg.match[1]}"
 
