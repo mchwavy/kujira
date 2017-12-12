@@ -42,7 +42,28 @@ module.exports = (robot) ->
                                         return
 
                                 msg.send "#{exports.stuff}をTrelloの買い物リストに保存しました。"
-                        
+
+        robot.hear /^(.*)(を|\s+)(買う|買って)$/i, (msg) ->
+
+                title="#{msg.match[1]}"
+                tobuyList=title.split(/\s/)
+                trello = new Trello(process.env.HUBOT_TRELLO_KEY, process.env.HUBOT_TRELLO_TOKEN)
+
+                for num in [0...tobuyList.length]
+
+                        exports.stuff=tobuyList[num]
+
+                        trello.post "/1/lists/#{process.env.HUBOT_TRELLO_TOBUY}/cards", {
+                                name: tobuyList[num]
+                                due: null 
+                        }, (err, data) ->
+
+                                if err
+                                        msg.send "保存に失敗しました"
+                                        return
+
+                                msg.send "#{exports.stuff}をTrelloの買い物リストに保存しました。"
+
 
         robot.hear /^買い物リスト(\s?)$/i, (msg) ->
 
@@ -97,7 +118,7 @@ module.exports = (robot) ->
 
                         msg.send "#{listMessage}"
 
-        robot.hear /^買った(\s+)(.*)/i, (msg) ->
+        robot.hear /^買った(\s*)(.*)$/i, (msg) ->
 
                 title="#{msg.match[2]}"
 
@@ -137,6 +158,48 @@ module.exports = (robot) ->
                                                 return
 
                         # msg.send "買い物リストに#{title}はありません"
+
+        robot.hear /^(.*)(を|\s+)買った$/i, (msg) ->
+
+                title="#{msg.match[1]}"
+
+                tobuyList=title.split(/\s/)
+                trello = new Trello(process.env.HUBOT_TRELLO_KEY, process.env.HUBOT_TRELLO_TOKEN)
+
+                trello.get "/1/lists/#{process.env.HUBOT_TRELLO_TOBUY}/cards", {
+                }, (err, data) ->
+
+                        if err
+                                msg.send "リスト取得に失敗しました"
+                                return
+
+                        jdata=JSON.stringify(data)
+                        try
+                                json=JSON.parse(jdata)
+                        catch e
+                                msg.send "JSON parse error: #{e}"
+
+                        # msg.send "length: #{tobuyList.length} \n"
+
+                        for num in [0...json.length]
+                                # msg.send "#{json[num].name} #{title]}"
+                                if json[num].name is title
+                                        # msg.send "買い物リストから#{title}を消します"
+                                        # msg.send "#{title}のIDは: #{json[num].id}"
+
+                                        trello.put "/1/cards/#{json[num].id}/closed", {
+                                                value: true
+                                        }, (err, data) ->
+        
+                                                if err
+                                                        msg.send "消すのに失敗しました"
+                                                        return
+                                
+                                                msg.send "Trelloの買い物リストにある「#{title}」を消しました"
+                                                return
+
+                        # msg.send "買い物リストに#{title}はありません"
+
 
 
         # 定期処理をするオブジェクトを宣言
