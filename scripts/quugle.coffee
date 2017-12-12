@@ -22,3 +22,14 @@ module.exports = (robot) ->
                                 text+="+"
 
                 msg.send text
+
+        robot.hear /^(.*)の(料理|レシピ)$/, (msg) ->
+                text="quugle.blogspot.jp/search?q="
+                things=msg.match[2]
+                lists=things.split /\s+/
+                for num in [0...lists.length]
+                        text+=lists[num]
+                        if num < lists.length-1
+                                text+="+"
+
+                msg.send text
