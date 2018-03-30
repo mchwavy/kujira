@@ -8,7 +8,8 @@
 #  None
 #
 # Commands:
-#
+#  日報を作って 今日の日報を作ります
+#        
 # Notes:
 # I don't know how to use hubot-slack-api...
 # 

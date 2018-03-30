@@ -9,7 +9,6 @@
 # Commands:
 #  ライン ○○ Lineにメッセージを送る。
 #  Line ○○ Lineにメッセージを送る。
-#  Ｌｉｎｅ ○○ Lineにメッセージを送る。
 #
 # Notes:
 # 
