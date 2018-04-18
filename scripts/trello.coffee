@@ -41,7 +41,9 @@ module.exports = (robot) ->
                                         msg.send "保存に失敗しました"
                                         return
 
-                                msg.send "#{exports.stuff}をTrelloの買い物リストに保存しました。"
+                                # msg.send "#{exports.stuff}をTrelloの買い物リストに保存しました。"
+
+                msg.send "買い物リストを修正しました。"
 
         robot.hear /^(.*)(を|\s+)(買う|買って)$/i, (msg) ->
 
