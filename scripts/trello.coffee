@@ -163,7 +163,8 @@ module.exports = (robot) ->
                                                                 msg.send "消すのに失敗しました"
                                                                 return
                                 
-                                                        msg.send "Trelloの買い物リストにある「#{title}」を消しました"
+#                                                        msg.send "Trelloの買い物リストにある「#{title}」を消しました"
+                                                        msg.send "Trelloの買い物リストにある「#{tuboyList[lnum]}」を消しました"
                                                         return
 
                         # msg.send "買い物リストに#{title}はありません"
