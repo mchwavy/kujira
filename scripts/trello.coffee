@@ -120,8 +120,15 @@ module.exports = (robot) ->
 
         robot.hear /^買った(\s*)(.*)$/i, (msg) ->
 
-                title="#{msg.match[2]}"
+                # title="#{msg.match[2]}"
+                # tobuyList=title.split(/\s/)
+                # trello = new Trello(process.env.HUBOT_TRELLO_KEY, process.env.HUBOT_TRELLO_TOKEN)
 
+                # for num in [0...tobuyList.length]
+
+                #         exports.stuff=tobuyList[num]
+
+                title="#{msg.match[2]}"
                 tobuyList=title.split(/\s/)
                 trello = new Trello(process.env.HUBOT_TRELLO_KEY, process.env.HUBOT_TRELLO_TOKEN)
 
@@ -140,22 +147,24 @@ module.exports = (robot) ->
 
                         # msg.send "length: #{tobuyList.length} \n"
 
-                        for num in [0...json.length]
+                        for lnum in [0...tobuyList.length]
+
+                                for num in [0...json.length]
                                 # msg.send "#{json[num].name} #{title]}"
-                                if json[num].name is title
+                                        if json[num].name is tobuyList[lnum]
                                         # msg.send "買い物リストから#{title}を消します"
                                         # msg.send "#{title}のIDは: #{json[num].id}"
 
-                                        trello.put "/1/cards/#{json[num].id}/closed", {
-                                                value: true
-                                        }, (err, data) ->
+                                                trello.put "/1/cards/#{json[num].id}/closed", {
+                                                        value: true
+                                                }, (err, data) ->
         
-                                                if err
-                                                        msg.send "消すのに失敗しました"
-                                                        return
+                                                        if err
+                                                                msg.send "消すのに失敗しました"
+                                                                return
                                 
-                                                msg.send "Trelloの買い物リストにある「#{title}」を消しました"
-                                                return
+                                                        msg.send "Trelloの買い物リストにある「#{title}」を消しました"
+                                                        return
 
                         # msg.send "買い物リストに#{title}はありません"
 
