@@ -140,6 +140,8 @@ module.exports = (robot) ->
 
                         title=exports.stuff
                         tobuyList=title.split(/\s/)
+                        msg.send "#{title}. List0name: #{tobuyList[0].name}\n"
+                        
                         for lnum in [0...tobuyList.length]
 
                                 msg.send "bought length: #{tobuyList.length}. check: #{exports.stuff}. list length: #{json.length} \n"
