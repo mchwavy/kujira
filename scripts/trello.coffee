@@ -140,9 +140,7 @@ module.exports = (robot) ->
 
                         title=exports.stuff
                         tobuyList=title.split(/\s/)
-                        if typeof(tobuyList) is undefined
-                                tobuyList=title
-                        msg.send "#{title}. List0name: #{tobuyList[0].name}\n"
+                        msg.send "#{title}. List0name: #{tobuyList[0]}\n"
                         
                         for lnum in [0...tobuyList.length]
 
@@ -150,8 +148,8 @@ module.exports = (robot) ->
 
                                 for num in [0...json.length]
 
-                                        msg.send "#{json[num].name} #{tobuyList[lnum].name}"
-                                        if json[num].name is tobuyList[lnum].name
+                                        msg.send "#{json[num].name} #{tobuyList[lnum]}"
+                                        if json[num].name is tobuyList[lnum]
                                                 # msg.send "買い物リストから#{title}を消します"
                                                 # msg.send "#{title}のIDは: #{json[num].id}"
 
@@ -163,7 +161,7 @@ module.exports = (robot) ->
                                                                 msg.send "消すのに失敗しました"
                                                                 return
                                 
-                                                        msg.send "Trelloの買い物リストにある「#{tobuyList[lnum].name}」を消しました"
+                                                        msg.send "Trelloの買い物リストにある「#{tobuyList[lnum]}」を消しました"
                                                         return
 
                         # msg.send "買い物リストに#{title}はありません"
