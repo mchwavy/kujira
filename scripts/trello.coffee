@@ -139,7 +139,7 @@ module.exports = (robot) ->
 
                         msg.send "getList: #{exports.stuff}"
                         tempChar=exports.stuff        
-                        tobuyList=tmpChar.split(/\s/)
+                        tobuyList=tempChar.split(/\s/)
                         msg.send "#{tempChar} -> list0 name: #{tuboyList[0].name}"
 
                         for lnum in [0...tobuyList.length]
