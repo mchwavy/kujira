@@ -149,7 +149,7 @@ module.exports = (robot) ->
 
                                 for num in [0...json.length]
 
-                                        msg.send "#{json[num].name} #{title]}"
+                                        msg.send "#{json[num].name} #{exports.stuff}"
                                         if json[num].name is exports.stuff
                                         # msg.send "買い物リストから#{title}を消します"
                                         # msg.send "#{title}のIDは: #{json[num].id}"
