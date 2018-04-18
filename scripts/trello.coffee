@@ -164,7 +164,7 @@ module.exports = (robot) ->
                         # msg.send "買い物リストに#{title}はありません"
 
                         # msec
-                        , 3000)
+                        , 5000)
                         
         robot.hear /^(.*)(を|(\s+))買った$/i, (msg) ->
 
