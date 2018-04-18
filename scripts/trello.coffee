@@ -131,7 +131,7 @@ module.exports = (robot) ->
                 title="#{msg.match[2]}"
                 trello = new Trello(process.env.HUBOT_TRELLO_KEY, process.env.HUBOT_TRELLO_TOKEN)
 
-                exports.stuff=title
+                tobuyList=title.split(/\s/)
 
                 trello.get "/1/lists/#{process.env.HUBOT_TRELLO_TOBUY}/cards", {
                 }, (err, data) ->
@@ -148,9 +148,8 @@ module.exports = (robot) ->
 
                         # msg.send "length: #{tobuyList.length} \n"
 
-                        tobuyList=exports.stuff.split(/\s/)
-
                         for lnum in [0...tobuyList.length]
+
                                 for num in [0...json.length]
 
                                 # msg.send "#{json[num].name} #{title]}"
@@ -166,8 +165,7 @@ module.exports = (robot) ->
                                                                 msg.send "消すのに失敗しました"
                                                                 return
                                 
-#                                                        msg.send "Trelloの買い物リストにある「#{title}」を消しました"
-                                                        msg.send "Trelloの買い物リストにある「#{tobuyList[lnum].name}」を消しました"
+                                                        msg.send "Trelloの買い物リストにある「#{json[num].name}」を消しました"
                                                         return
 
                         # msg.send "買い物リストに#{title}はありません"
