@@ -125,7 +125,7 @@ module.exports = (robot) ->
                 trello = new Trello(process.env.HUBOT_TRELLO_KEY, process.env.HUBOT_TRELLO_TOKEN)
 
                 trello.get "/1/lists/#{process.env.HUBOT_TRELLO_TOBUY}/cards", {
-                }, (err, data, title) ->
+                }, (err, data) ->
 
                         if err
                                 msg.send "リスト取得に失敗しました"
@@ -137,9 +137,10 @@ module.exports = (robot) ->
                         catch e
                                 msg.send "JSON parse error: #{e}"
 
-                        msg.send "getList: #{title}"
-                        tobuyList=title.split(/\s/)
-                        msg.send "list0 name: #{tuboyList[0].name}"
+                        msg.send "getList: #{exports.stuff}"
+                        tempChar=exports.stuff        
+                        tobuyList=tmpChar.split(/\s/)
+                        msg.send "#{tempChar} -> list0 name: #{tuboyList[0].name}"
 
                         for lnum in [0...tobuyList.length]
 
