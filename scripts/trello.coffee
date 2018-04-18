@@ -145,12 +145,11 @@ module.exports = (robot) ->
                                 catch e
                                         msg.send "JSON parse error: #{e}"
 
-                                msg.send "length: #{tobuyList.length} \n"
-                                msg.send "check: #{exports.stuff} \n"
+                                msg.send "bought length: #{tobuyList.length}. check: #{exports.stuff}. list length: #{json.length} \n"
 
                                 for num in [0...json.length]
 
-                                # msg.send "#{json[num].name} #{title]}"
+                                        msg.send "#{json[num].name} #{title]}"
                                         if json[num].name is exports.stuff
                                         # msg.send "買い物リストから#{title}を消します"
                                         # msg.send "#{title}のIDは: #{json[num].id}"
