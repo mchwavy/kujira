@@ -124,14 +124,10 @@ module.exports = (robot) ->
                 # tobuyList=title.split(/\s/)
                 # trello = new Trello(process.env.HUBOT_TRELLO_KEY, process.env.HUBOT_TRELLO_TOKEN)
 
-                # for num in [0...tobuyList.length]
-
-                #         exports.stuff=tobuyList[num]
-
                 title="#{msg.match[2]}"
-                trello = new Trello(process.env.HUBOT_TRELLO_KEY, process.env.HUBOT_TRELLO_TOKEN)
 
-                tobuyList=title.split(/\s/)
+                exports.stuff=title
+                trello = new Trello(process.env.HUBOT_TRELLO_KEY, process.env.HUBOT_TRELLO_TOKEN)
 
                 trello.get "/1/lists/#{process.env.HUBOT_TRELLO_TOBUY}/cards", {
                 }, (err, data) ->
@@ -147,6 +143,8 @@ module.exports = (robot) ->
                                 msg.send "JSON parse error: #{e}"
 
                         # msg.send "length: #{tobuyList.length} \n"
+                        title = exports.stuff
+                        tobuyList=title.split(/\s/)
 
                         for lnum in [0...tobuyList.length]
 
