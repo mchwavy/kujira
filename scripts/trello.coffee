@@ -138,8 +138,9 @@ module.exports = (robot) ->
                                 msg.send "JSON parse error: #{e}"
 
                         msg.send "getList: #{exports.stuff}"
-                        getList=exports.stuff
-                        tobuyList=getList.split(/\s/)
+                        tmpChar=exports.stuff
+                        tobuyList=tmpChar.split(/\s/)
+                        msg.send "list0 name: #{tuboyList[0].name}"
 
                         for lnum in [0...tobuyList.length]
 
