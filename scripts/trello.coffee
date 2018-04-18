@@ -121,32 +121,33 @@ module.exports = (robot) ->
         robot.hear /^買った(\s*)(.*)$/i, (msg) ->
 
                 title="#{msg.match[2]}"
-                tobuyList=title.split(/\s/)
                 trello = new Trello(process.env.HUBOT_TRELLO_KEY, process.env.HUBOT_TRELLO_TOKEN)
+                exports.stuff=title
 
-                for lnum in [0...tobuyList.length]
+                trello.get "/1/lists/#{process.env.HUBOT_TRELLO_TOBUY}/cards", {
+                }, (err, data) ->
 
-                        exports.stuff=tobuyList[lnum]
+                        if err
+                                msg.send "リスト取得に失敗しました"
+                                return
 
-                        trello.get "/1/lists/#{process.env.HUBOT_TRELLO_TOBUY}/cards", {
-                        }, (err, data) ->
+                        jdata=JSON.stringify(data)
+                        try
+                                json=JSON.parse(jdata)
+                        catch e
+                                msg.send "JSON parse error: #{e}"
 
-                                if err
-                                        msg.send "リスト取得に失敗しました"
-                                        return
+                        getList=exports.stuff
+                        tobuyList=getList.split(/\s/)
 
-                                jdata=JSON.stringify(data)
-                                try
-                                        json=JSON.parse(jdata)
-                                catch e
-                                        msg.send "JSON parse error: #{e}"
+                        for lnum in [0...tobuyList.length]
 
-                                msg.send "bought length: #{tobuyList.length}. check: #{exports.stuff}. list length: #{json.length} \n"
+                                msg.send "bought length: #{tobuyList.length}. check: #{tobuyList[lnum].name}. list length: #{json.length} \n"
 
                                 for num in [0...json.length]
 
-                                        msg.send "#{json[num].name} #{exports.stuff}"
-                                        if json[num].name is exports.stuff
+                                        msg.send "#{json[num].name} #{tobuyList[lnum].name}"
+                                        if json[num].name is tobuyList[lnum].name
                                                 # msg.send "買い物リストから#{title}を消します"
                                                 # msg.send "#{title}のIDは: #{json[num].id}"
 
@@ -158,7 +159,7 @@ module.exports = (robot) ->
                                                                 msg.send "消すのに失敗しました"
                                                                 return
                                 
-                                                        msg.send "Trelloの買い物リストにある「#{exports.stuff}」を消しました"
+                                                        msg.send "Trelloの買い物リストにある「#{tobuyList[lnum].name}」を消しました"
                                                         return
 
                         # msg.send "買い物リストに#{title}はありません"
