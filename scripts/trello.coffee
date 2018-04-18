@@ -121,8 +121,8 @@ module.exports = (robot) ->
         robot.hear /^買った(\s*)(.*)$/i, (msg) ->
 
                 title="#{msg.match[2]}"
-                trello = new Trello(process.env.HUBOT_TRELLO_KEY, process.env.HUBOT_TRELLO_TOKEN)
                 exports.stuff=title
+                trello = new Trello(process.env.HUBOT_TRELLO_KEY, process.env.HUBOT_TRELLO_TOKEN)
 
                 trello.get "/1/lists/#{process.env.HUBOT_TRELLO_TOBUY}/cards", {
                 }, (err, data) ->
@@ -137,6 +137,7 @@ module.exports = (robot) ->
                         catch e
                                 msg.send "JSON parse error: #{e}"
 
+                        msg.send "getList: #{exports.stuff}"
                         getList=exports.stuff
                         tobuyList=getList.split(/\s/)
 
