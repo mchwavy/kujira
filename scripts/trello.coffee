@@ -84,10 +84,10 @@ module.exports = (robot) ->
                                 msg.send "JSON parse error: #{e}"
 
                         if json.length is 0
-                                msg.send "買い物リストは空です。"
+                                msg.send "買い物リストはカラです。"
                                 return
                                 
-                        listMessage="買い物リストです\n"
+                        listMessage="買い物リストです。"
                         for num in [0...json.length]
                                 # msg.send "list id: #{json[num].id}"
                                 listMessage+="#{json[num].name}"
@@ -112,7 +112,7 @@ module.exports = (robot) ->
                         catch e
                                 msg.send "JSON parse error: #{e}"
 
-                        listMessage="買い物リストです\n"
+                        listMessage="買い物リストです。"
                         for num in [0...json.length]
                                 listMessage+="#{json[num].id}: #{json[num].name}"
                                 if num < json.length-1
