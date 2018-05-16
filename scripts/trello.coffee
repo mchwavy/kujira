@@ -141,7 +141,7 @@ module.exports = (robot) ->
                                 msg.send "JSON parse error: #{e}"
 
                         title=exports.stuff
-                        tobuyList=title.split(/\s/)
+                        tobuyList=title.split(/\s|、/)
                         
                         for lnum in [0...tobuyList.length]
 
