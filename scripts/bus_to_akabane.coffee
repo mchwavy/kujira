@@ -82,9 +82,9 @@ module.exports = (robot) ->
                         busFromNow += "、"
                         busTimeStrInFour = busListWeekday[num] + ""
                         if busListWeekday[num] < 1000
-                                busTimeStr = busTimeStrInFour[0]+"時"+busTimeStrInFour[1..2]+"分"
+                                busTimeStr = busTimeStrInFour[0]+":"+busTimeStrInFour[1..2]
                         else
-                                busTimeStr = busTimeStrInFour[0..1]+"時"+busTimeStrInFour[2..3]+"分"
+                                busTimeStr = busTimeStrInFour[0..1]+":"+busTimeStrInFour[2..3]
 
                         busFromNow += busTimeStr
 
@@ -101,9 +101,9 @@ module.exports = (robot) ->
                         busFromNow += "、"
                         busTimeStrInFour = busListSaturday[num] + ""
                         if busListSaturday[num] < 1000
-                                busTimeStr = busTimeStrInFour[0]+"時"+busTimeStrInFour[1..2]+"分"
+                                busTimeStr = busTimeStrInFour[0]+":"+busTimeStrInFour[1..2]
                         else
-                                busTimeStr = busTimeStrInFour[0..1]+"時"+busTimeStrInFour[2..3]+"分"
+                                busTimeStr = busTimeStrInFour[0..1]+":"+busTimeStrInFour[2..3]
 
                         busFromNow += busTimeStr
 
@@ -119,9 +119,9 @@ module.exports = (robot) ->
                         busFromNow += "、"
                         busTimeStrInFour = busListSunday[num] + ""
                         if busListSunday[num] < 1000
-                                busTimeStr = busTimeStrInFour[0]+"時"+busTimeStrInFour[1..2]+"分"
+                                busTimeStr = busTimeStrInFour[0]+":"+busTimeStrInFour[1..2]
                         else
-                                busTimeStr = busTimeStrInFour[0..1]+"時"+busTimeStrInFour[2..3]+"分"
+                                busTimeStr = busTimeStrInFour[0..1]+":"+busTimeStrInFour[2..3]
 
                         busFromNow += busTimeStr
 
@@ -195,9 +195,9 @@ module.exports = (robot) ->
 
                                                 busTimeStrInFour = busListWeekday[num] + ""
                                                 if busListWeekday[num] < 1000
-                                                        busTimeStr = busTimeStrInFour[0]+":"+busTimeStrInFour[1..2]
+                                                        busTimeStr = busTimeStrInFour[0]+"時"+busTimeStrInFour[1..2]+"分"
                                                 else
-                                                        busTimeStr = busTimeStrInFour[0..1]+":"+busTimeStrInFour[2..3]
+                                                        busTimeStr = busTimeStrInFour[0..1]+"時"+busTimeStrInFour[2..3]+"分"
         
                                                 busFromNow += busTimeStr
 
@@ -218,9 +218,9 @@ module.exports = (robot) ->
 
                                                 busTimeStrInFour = busListSaturday[num] + ""
                                                 if busListSaturday[num] < 1000
-                                                        busTimeStr = busTimeStrInFour[0]+":"+busTimeStrInFour[1..2]
+                                                        busTimeStr = busTimeStrInFour[0]+"時"+busTimeStrInFour[1..2]+"分"
                                                 else
-                                                        busTimeStr = busTimeStrInFour[0..1]+":"+busTimeStrInFour[2..3]
+                                                        busTimeStr = busTimeStrInFour[0..1]+"時"+busTimeStrInFour[2..3]+"分"
 
                                                 busFromNow += busTimeStr
 
@@ -241,9 +241,9 @@ module.exports = (robot) ->
 
                                                 busTimeStrInFour = busListSunday[num] + ""
                                                 if busListSunday[num] < 1000
-                                                        busTimeStr = busTimeStrInFour[0]+":"+busTimeStrInFour[1..2]
+                                                        busTimeStr = busTimeStrInFour[0]+"時"+busTimeStrInFour[1..2]+"分"
                                                 else
-                                                        busTimeStr = busTimeStrInFour[0..1]+":"+busTimeStrInFour[2..3]
+                                                        busTimeStr = busTimeStrInFour[0..1]+"時"+busTimeStrInFour[2..3]+"分"
 
                                                 busFromNow += busTimeStr
 
