@@ -107,6 +107,9 @@ module.exports = (robot) ->
                                 if json.messages[num].user is process.env.HUBOT_SLACK_MYIDNUM
                                         listMessage+="#{json.messages[num].text}\n \n"
 
+                                if json.messages[num].username is "kuma the timekeeper"
+                                        listMessage+="#{json.messages[num].text}\n \n"
+                                                                                
                         # msg.send "#{listMessage}"
 
                         sendmail(msg, mailSubject, listMessage)
