@@ -70,7 +70,7 @@ module.exports = (robot) ->
 
                 mailSubject="#{year}-#{pad month, 2}-#{pad date, 2} @0201_Logbook"
 
-                apiUrl="https://slack.com/api/channels.history?token=#{process.env.HUBOT_SLACK_TOKEN}&channel=#{process.env.HUBOT_SLACK_WORK_CHANNEL}&oldest=#{tsMidnight}&pretty=1"
+                apiUrl="https://slack.com/api/conversations.history?token=#{process.env.HUBOT_SLACK_TOKEN}&channel=#{process.env.HUBOT_SLACK_WORK_CHANNEL}&oldest=#{tsMidnight}&pretty=1"
 
                 msg.send "日報を作成します"
                 # msg.send "#{apiUrl}"
