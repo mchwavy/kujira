@@ -102,7 +102,7 @@ module.exports = (robot) ->
                                 if json.messages[num].username is "kuma the timekeeper"
                                         listMessage+="#{json.messages[num].text}\n \n"
 
-                        # msg.send "#{listMessage}"
+                        msg.send "#{listMessage}"
 
                         sendmail(msg, mailSubject, listMessage)
 
